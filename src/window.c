@@ -43,25 +43,25 @@ void window_init(const char* title) {
     apple_init(7 * CELLSIZE, 3 * CELLSIZE, CELLSIZE, CELLROWS - 1, CELLCOLS - 1);
     score_init("res/arial.ttf");
 
-    window.boundaries[0].x = 0;
-    window.boundaries[0].y = 0;
-    window.boundaries[0].w = SCREENWIDTH;
-    window.boundaries[0].h = CELLSIZE;
-
-    window.boundaries[1].x = 0;
-    window.boundaries[1].y = SCREENHEIGHT - CELLSIZE;
-    window.boundaries[1].w = SCREENWIDTH;
-    window.boundaries[1].h = CELLSIZE;
-
-    window.boundaries[2].x = 0;
-    window.boundaries[2].y = 0;
-    window.boundaries[2].w = CELLSIZE;
-    window.boundaries[2].h = SCREENHEIGHT;
-
-    window.boundaries[3].x = SCREENWIDTH - CELLSIZE;
-    window.boundaries[3].y = 0;
-    window.boundaries[3].w = CELLSIZE;
-    window.boundaries[3].h = SCREENHEIGHT;
+    for (int i = 0; i < 4; i++) {
+        if (i < 2) {
+            window.boundaries[i].x = 0;
+            window.boundaries[i].w = SCREENWIDTH;
+            window.boundaries[i].h = CELLSIZE;
+            if (i % 2 != 0)
+                window.boundaries[i].y = SCREENHEIGHT - CELLSIZE;
+            else
+                window.boundaries[i].y = 0;
+        } else {
+            window.boundaries[i].y = 0;
+            window.boundaries[i].w = CELLSIZE;
+            window.boundaries[i].h = SCREENHEIGHT;
+            if (i % 2 != 0)
+                window.boundaries[i].x = SCREENWIDTH - CELLSIZE;
+            else
+                window.boundaries[i].x = 0;
+        }
+    }
 
     window.pause_text = Text_Init(
         window.renderer, "PAUSE", "res/arial.ttf", (SCREENWIDTH / 2) - 80, (SCREENHEIGHT / 2) - 30,
