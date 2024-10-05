@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_surface.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -52,4 +53,6 @@ void apple_render(SDL_Renderer* renderer) {
     apple.texture = SDL_CreateTextureFromSurface(renderer, apple.surface);
 
     SDL_RenderCopy(renderer, apple.texture, NULL, &apple.rect);
+
+    SDL_DestroyTexture(apple.texture);
 }
